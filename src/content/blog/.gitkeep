@@ -1,0 +1,1 @@
+This folder holds MDX blog posts (see `src/lib/blog.ts` for the loader + frontmatter schema). Empty for now — see the seed topic backlog noted in the project plan.

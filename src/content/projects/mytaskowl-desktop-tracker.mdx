@@ -1,0 +1,34 @@
+---
+title: "MyTaskOwl Cross-Platform Desktop Tracker & AI Assistant"
+slug: "mytaskowl-desktop-tracker"
+oneLiner: "Rebuilt desktop client from scratch: custom .NET/PowerShell activity tracking, automated screenshots, realtime chat, and an on-screen circular AI assistant."
+role: "Solo rebuild — architected desktop client, .NET tracking engine, and desktop AI overlay"
+tags: ["Electron", ".NET", "Node.js", "Python", "PowerShell", "WebSockets", "AI Assistant"]
+metrics: ["Custom .NET Engine", "On-Screen AI Widget", "Offline-First Sync", "100% solo rebuild"]
+accentColor: "violet"
+order: 5
+links:
+  download: "https://mytaskowl.com/downloads/"
+---
+
+## Overview & Background
+
+The legacy desktop tracker suffered from tracking drift, crash-prone screenshot captures, and lost offline data on network disconnects. I rebuilt the application from the ground up as a modern, reliable Electron desktop client powered by a custom .NET background engine, and introduced new capabilities including integrated realtime chat and a floating on-screen AI companion.
+
+## Key Features & Architecture
+
+- **Custom .NET & PowerShell Tracking Engine:** Built a dedicated .NET background engine that interfaces directly with system processes and browser UIs using PowerShell scripts. This captures exact-second active window titles, application usage, and browser URLs without performance degradation.
+- **Floating AI Assistant Widget:** Designed and built an always-available circular desktop overlay that floats unobtrusively on the user's screen. It delivers contextual AI-driven guidance, allows direct messaging, and broadcasts real-time platform and company announcements.
+- **Integrated Realtime Chat:** Embedded a responsive chat client connected via WebSockets, allowing team members to communicate without leaving their work desktop environment.
+- **Background Screenshot Capture:** Created an automated capture and compression pipeline that buffers screenshots in the background without causing UI stutters or interrupting the user.
+- **Offline-First Storage & Auto-Sync:** Implemented a local sync queue ensuring tracking data and screenshots are safely persisted during internet outages, and idempotently flushed to the cloud once reconnected.
+
+## Engineering Trade-offs & Solutions
+
+- **Process-Level Inspection vs. System Overhead:** Optimized the .NET background worker and PowerShell execution loop to ensure near-zero CPU and memory footprints even during all-day tracking sessions.
+- **Floating Widget User Experience:** Tuned the circular AI assistant overlay with smooth animations, customizable opacity, and non-blocking click-through options so it never interferes with active applications.
+- **Sync Queue Idempotency:** Designed a robust batching protocol with the Laravel backend to guarantee that reconnect syncs never duplicate time entries or drop screenshot records.
+
+## Impact
+
+Replaced the unstable legacy tracker with an all-in-one desktop companion that accurately logs time, facilitates team communication, and provides on-screen AI assistance across thousands of user hours.

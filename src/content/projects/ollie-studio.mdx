@@ -1,0 +1,59 @@
+---
+title: "Ollie Studio — Generative AI Workspace Platform"
+slug: "ollie-studio"
+oneLiner: "A solo-built, multi-modal AI agent platform: prompt-to-slides, image/diagram generation, video gen, live audio transcription, and document synthesis."
+role: "Solo end-to-end engineer — architecture, NestJS backend, and agent orchestration"
+tags: ["NestJS", "Google Agent SDK", "Node.js", "Vue"]
+metrics: ["6 AI generation modes", "End-to-end solo build", "Multi-modal pipeline"]
+accentColor: "teal"
+order: 2
+links:
+  staging: "https://staging-ollie-studio.mytaskowl.com"
+---
+
+## Problem
+
+Teams were stitching together five or six separate AI tools to go from an
+idea to a finished slide deck, diagram, video, or transcript — copying
+context between them by hand every time. Ollie Studio's brief was to put
+prompt-to-output generation for all of those formats behind one workspace,
+with one coherent orchestration layer underneath.
+
+## Architecture & Key Decisions
+
+I built this end-to-end, solo, from the agent layer down to the UI:
+
+- **NestJS backend services & API gateway**, organizing modular micro-services for different AI modalities with TypeScript safety and clean dependency injection.
+- **Agent orchestration on the Google Agent SDK**, routing a single prompt to
+  the right generation pipeline (slides, image/diagram, video, transcription,
+  or document synthesis) based on user intent.
+- **Job queues for long-running generation tasks** (video especially), so the
+  workspace stays responsive while heavy generation happens in the
+  background and streams status back to the client.
+- **Isolated service boundaries per modality**, so a slow or failing video
+  job can't take down slide or image generation.
+- **A realtime audio transcription pipeline** built for live sessions rather
+  than only batch file uploads.
+
+## Trade-offs
+
+- Some modalities were worth building custom pipelines for; others made more
+  sense to integrate against existing models — decided modality-by-modality
+  rather than dogmatically building or buying everything.
+- Model choice per generation mode balanced latency against output quality;
+  faster models were used where users expect near-instant feedback (slides,
+  diagrams), slower/higher-quality models where users are already expecting
+  to wait (video).
+- Long-running jobs run asynchronously through a queue instead of holding a
+  request open, trading a small amount of added complexity for a workspace
+  that never feels frozen.
+
+## Impact
+
+Shipped as a complete, working multi-modal platform — six generation modes
+behind a single workspace, built and shipped solo, currently live on
+staging.
+
+Shipped as a complete, working multi-modal platform — six generation modes
+behind a single workspace, built and shipped solo, currently live on
+staging.

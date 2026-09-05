@@ -1,0 +1,31 @@
+---
+title: "MyTaskOwl Mobile App & Hybrid GPS Routing Engine"
+slug: "mytaskowl-mobile-gps"
+oneLiner: "Engineered hybrid OSRM/raw GPS location history pathing, fixed mobile time-tracking, and integrated realtime WebSockets."
+role: "Full Stack Engineer — mobile feature optimization, geolocation algorithm, and realtime infrastructure"
+tags: ["Leaflet", "OSRM", "React Native", "WebSockets", "Laravel"]
+metrics: ["Hybrid OSRM Routing", "GPS Jitter Filtering", "Realtime WebSockets"]
+accentColor: "teal"
+order: 4
+links:
+  appStore: "https://apps.apple.com/ph/app/mytaskowl-mobile/id6762628862"
+  playStore: "https://play.google.com/store/apps/details?id=com.mytaskowl.mytaskowl&hl=en"
+---
+
+## Overview
+
+In MyTaskOwl's mobile ecosystem, tracking employee location history accurately is crucial for field workforce monitoring. However, raw GPS data suffered from jitter and straight lines through buildings during connection drops, while pure third-party map routing (like OSRM) produced strange detour loops and inaccuracies when employees took unconventional routes.
+
+## Engineering Highlights & Problem Solving
+
+- **Hybrid GPS Pathing Algorithm:** Designed a custom hybrid map rendering pipeline used across both the mobile and web application map views:
+  - **Raw Coordinate Rendering:** Directly draws the actual high-accuracy GPS points to preserve the exact route taken by the worker.
+  - **Stationary Jitter Filter:** Filters out micro-movements under 15 meters using the Haversine distance formula to prevent messy stationary clusters when an employee is resting or working in one spot.
+  - **Smart OSRM Gap Bridging:** When connection drops create large gaps (e.g. >500 meters) where drawing a straight line would cut through buildings, the engine queries OSRM routing specifically for just that gap segment to reconstruct the road path seamlessly.
+  - **Detour & Loop Elimination:** Prevented OSRM detour loops and reverse jumps by sorting timestamped history entries chronologically and caching the map bounds dynamically.
+- **Mobile Time Tracking Fixes:** Resolved edge-case bugs in background timer persistence, ensuring hours worked are never dropped when the phone goes to sleep or switches networks.
+- **Realtime Chat & Push Notifications:** Added WebSockets and push notification hooks to ensure instant messaging and task update delivery between field staff and dispatchers.
+
+## Impact
+
+Replaced glitchy, looping GPS tracks with an accurate, performant map history visualization across both mobile and web apps, while ensuring reliable time logs for mobile workers.

@@ -1,0 +1,56 @@
+---
+title: "Patent & Trademark Analytics Engine"
+slug: "patent-trademark-analytics-engine"
+oneLiner: "Sub-second analytics across 100M+ USPTO/ODP patent and trademark records for a legal-tech client."
+role: "Sole backend engineer — owned the schema and query-layer redesign"
+tags: ["Laravel", "Vue", "MySQL", "Query Optimization"]
+metrics: ["100M+ records", "<1s p95 retrieval", "Zero-downtime migrations"]
+accentColor: "indigo"
+order: 1
+---
+
+## Problem
+
+The client's analytics platform let users filter and cross-reference patent
+and trademark records (sourcing massive datasets like USPTO and Open Data Portal / ODP)
+by owner, jurisdiction, filing date, and status. It worked fine at a few million
+rows. Past 100 million, the same queries that used to return in a couple hundred
+milliseconds started timing out — especially any filter combination that couldn't
+hit a single existing index. Every new report request risked becoming the next
+slow query.
+
+## Architecture & Key Decisions
+
+As the sole backend owner of this rework, I rebuilt the schema and query
+layer around how the data was actually queried, not just how it was
+structured on paper:
+
+- **Composite and covering indexes** built directly from the real filter
+  combinations product/analytics teams used, verified with `EXPLAIN` on
+  production-sized data rather than assumptions.
+- **Keyset (seek) pagination** instead of `OFFSET`-based paging, so page 500
+  of a report is exactly as fast as page 1.
+- **Selective denormalization** on the handful of read paths that dominated
+  traffic, with the source-of-truth tables staying normalized.
+- **A caching layer** in front of the most repeated aggregate queries, with
+  explicit invalidation tied to the ingestion pipeline rather than a blind
+  TTL.
+- Schema and index changes were rolled out as **zero-downtime migrations**,
+  since the platform stayed in active use by clients throughout.
+
+## Trade-offs
+
+- Denormalizing hot read paths meant more write-side complexity and extra
+  storage — accepted deliberately, and only where profiling showed it
+  actually mattered.
+- Keyset pagination removed the ability to jump to an arbitrary page number
+  in the UI, which the product team agreed to in exchange for consistent
+  performance at any depth.
+- Aggressive caching introduced a small window of eventual consistency on
+  non-critical aggregate figures, never on the underlying records themselves.
+
+## Impact
+
+Query retrieval across the full 100M+ record set now stays sub-second at the
+95th percentile, including under concurrent analytics load — with no
+downtime during the migration from the old schema.
