@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { GlassNav } from "@/components/layout/glass-nav";
 import { Footer } from "@/components/layout/footer";
+import { getBaseUrl } from "@/lib/utils";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,10 +20,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(getBaseUrl()),
   title: {
     default: "Jose Carl Angeles — Full Stack Software Engineer",
     template: "%s · Jose Carl Angeles",
