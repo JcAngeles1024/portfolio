@@ -52,14 +52,15 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const accent = ACCENT[accentColor];
 
-  // Pick the best primary external link to feature on the card (if any).
-  let primaryLink: { href: string; label: string } | null = null;
+  // Collect all available external links to feature on the card.
+  const externalLinks: { href: string; label: string }[] = [];
   if (links) {
-    if (links.live) primaryLink = { href: links.live, label: "Live Site" };
-    else if (links.staging) primaryLink = { href: links.staging, label: "Staging" };
-    else if (links.download) primaryLink = { href: links.download, label: "Download App" };
-    else if (links.appStore) primaryLink = { href: links.appStore, label: "App Store" };
-    else if (links.playStore) primaryLink = { href: links.playStore, label: "Google Play" };
+    if (links.live) externalLinks.push({ href: links.live, label: "Live Site" });
+    if (links.staging) externalLinks.push({ href: links.staging, label: "Staging" });
+    if (links.download) externalLinks.push({ href: links.download, label: "App Page" });
+    if (links.appStore) externalLinks.push({ href: links.appStore, label: "App Store" });
+    if (links.playStore) externalLinks.push({ href: links.playStore, label: "Google Play" });
+    if (links.repo) externalLinks.push({ href: links.repo, label: "Repository" });
   }
 
   return (
@@ -100,11 +101,11 @@ export function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-auto pt-6 flex items-center justify-between">
+        <div className="mt-auto pt-6 flex flex-wrap items-center justify-between gap-4">
           <Link
             href={`/projects/${slug}`}
             className={cn(
-              "group/link inline-flex items-center gap-1.5 text-sm font-medium",
+              "group/link inline-flex shrink-0 items-center gap-1.5 text-sm font-medium",
               accent.text,
             )}
           >
@@ -112,16 +113,21 @@ export function ProjectCard({
             <ArrowRight className="size-3.5 transition-transform group-hover/link:translate-x-1" />
           </Link>
 
-          {primaryLink && (
-            <a
-              href={primaryLink.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {primaryLink.label}
-              <ArrowUpRight className="size-3.5" />
-            </a>
+          {externalLinks.length > 0 && (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              {externalLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                  <ArrowUpRight className="size-3" />
+                </a>
+              ))}
+            </div>
           )}
         </div>
       </div>

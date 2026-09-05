@@ -193,3 +193,23 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Medium Image Zoom Overrides */
+[data-rmiz-modal-overlay] {
+  transition: background-color 0.3s, backdrop-filter 0.3s !important;
+}
+:root:not(.dark) [data-rmiz-modal-overlay="visible"] {
+  background-color: rgba(247, 248, 251, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+.dark [data-rmiz-modal-overlay="visible"] {
+  background-color: rgba(5, 6, 10, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+[data-rmiz-modal-overlay="hidden"] {
+  background-color: transparent !important;
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+}

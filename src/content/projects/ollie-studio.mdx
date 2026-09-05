@@ -11,6 +11,8 @@ links:
   staging: "https://staging-ollie-studio.mytaskowl.com"
 ---
 
+![Ollie Studio Landing Page](/oliie-studio-landing-page.png)
+
 ## Problem
 
 Teams were stitching together five or six separate AI tools to go from an
@@ -23,10 +25,18 @@ with one coherent orchestration layer underneath.
 
 I built this end-to-end, solo, from the agent layer down to the UI:
 
+![Ollie Studio Agent Dashboard](/ollie-studio-agent.png)
+
 - **NestJS backend services & API gateway**, organizing modular micro-services for different AI modalities with TypeScript safety and clean dependency injection.
 - **Agent orchestration on the Google Agent SDK**, routing a single prompt to
   the right generation pipeline (slides, image/diagram, video, transcription,
   or document synthesis) based on user intent.
+
+<ImageGrid>
+  ![Ollie Studio Diagram Generation](/ollie-studio-diagram.png)
+  ![Ollie Studio Slides Generation](/ollie-studio-slides.png)
+</ImageGrid>
+
 - **Job queues for long-running generation tasks** (video especially), so the
   workspace stays responsive while heavy generation happens in the
   background and streams status back to the client.
