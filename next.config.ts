@@ -11,7 +11,8 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Turbopack HMR needs 'unsafe-eval' in dev only; production keeps this out.
+      // Note: Turbopack HMR requires 'unsafe-eval' in development.
+      // We conditionally inject it here so production environments stay secure.
       `script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Notes on backend architecture, database performance, and building AI systems — written from production, not theory.",
 };
 
-// TODO: replace with real posts as they're written.
+// Ideas for future blog posts
 const BACKLOG_TOPICS = [
   "Scaling MySQL past 100M rows: the indexing decisions that actually mattered",
   "Building a multi-modal AI agent platform solo: what I'd do differently",

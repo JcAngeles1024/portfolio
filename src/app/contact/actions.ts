@@ -17,7 +17,7 @@ export async function submitContactForm(
   _prevState: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
-  // Honeypot field is hidden from real users via CSS — any bot that fills it gets a fake success.
+  // Spam trap: Real users won't see this field. If it's filled out, silently accept to fool bots.
   const honeypot = formData.get("company");
   if (typeof honeypot === "string" && honeypot.length > 0) {
     return { status: "success", message: SUCCESS_MESSAGE };

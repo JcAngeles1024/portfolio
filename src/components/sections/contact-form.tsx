@@ -43,7 +43,7 @@ export function ContactForm() {
       noValidate
       className="glass-panel rounded-panel p-6 sm:p-8"
     >
-      {/* Honeypot — hidden from sighted and screen-reader users; real visitors never fill this in. */}
+      {/* Spam trap field (hidden visually and from screen readers) */}
       <div
         aria-hidden="true"
         style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}

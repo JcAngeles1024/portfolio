@@ -56,7 +56,7 @@ const EDGES: [string, string][] = [
   ["backend", "database"],
 ];
 
-/** Interactive full-stack flow diagram for the hero; nodes are draggable with spring physics. */
+/** Interactive full-stack flow diagram; nodes are draggable with spring physics. */
 export function SchemaGraph() {
   const containerRef = useRef<HTMLDivElement>(null);
   const nodeMap = Object.fromEntries(NODES.map((n) => [n.id, n]));
@@ -129,7 +129,7 @@ export function SchemaGraph() {
         ))}
       </div>
 
-      {/* Grounded & helpful interactive badge */}
+      {/* Interactive instruction badge */}
       <div className="bg-card/95 border border-border p-2 shadow-elevated backdrop-blur-sm absolute -right-2 -bottom-4 z-20 flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5 sm:-right-4">
         <span className="relative flex size-2 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-teal opacity-75" />

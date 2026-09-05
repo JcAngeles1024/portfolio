@@ -8,13 +8,16 @@ const isConfigured = Boolean(
 const ratelimit = isConfigured
   ? new Ratelimit({
       redis: Redis.fromEnv(),
-      // 3 submissions per 60s per IP — generous for a real visitor, tight for a script.
+      // Limit users to 3 submissions per minute to prevent API abuse.
       limiter: Ratelimit.slidingWindow(3, "60 s"),
       prefix: "contact-form",
     })
   : null;
 
-/** Returns `success: true` when Upstash isn't configured yet, so local/dev never hard-fails. */
+/**
+ * Checks if the user has exceeded the rate limit.
+ * Always returns true if Upstash keys are missing so local development isn't blocked.
+ */
 export async function checkContactRateLimit(identifier: string) {
   if (!ratelimit) return { success: true as const };
   return ratelimit.limit(identifier);

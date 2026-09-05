@@ -13,7 +13,7 @@ interface CountUpProps {
   className?: string;
 }
 
-/** Animates from 0 to `value` once it scrolls into view; snaps instantly for prefers-reduced-motion. */
+/** Animates from 0 to `value` once it scrolls into view; snaps instantly for users who prefer reduced motion. */
 export function CountUp({
   value,
   prefix = "",

@@ -13,7 +13,7 @@ const PATHS: Record<NonNullable<SectionDividerProps["variant"]>, string> = {
   blob: "M0,32 C180,96 360,112 600,72 C880,24 1040,88 1440,40 L1440,120 L0,120 Z",
 };
 
-/** Purely decorative — hidden from assistive tech via aria-hidden. */
+/** Decorative SVG divider. Hidden from screen readers via aria-hidden. */
 export function SectionDivider({
   tone = "background",
   variant = "wave",
